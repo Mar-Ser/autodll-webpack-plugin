@@ -49,6 +49,7 @@ export const _createConfig = cacheDir => (settings, rawParentConfig) => {
     output: {
       filename: filename,
       library: '[name]_[chunkhash]',
+      devtoolModuleFilenameTemplate: 'webpack:///[resource-path]',
     },
   };
 
