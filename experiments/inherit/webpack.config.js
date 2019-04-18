@@ -5,9 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   context: __dirname,
+  devtool: 'source-map',
   entry: {
     main: './src/index.js',
   },
+  target: 'web',
 
   output: {
     filename: '[name].bundle.js',
@@ -17,6 +19,14 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true,
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+        },
+      },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -35,6 +45,22 @@ module.exports = {
     ],
   },
 
+  resolve: {
+    extensions: [
+      '.js',
+      '.jsx',
+      '.css',
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.svg',
+      '.ttf',
+      '.eot',
+      '.woff',
+      '.woff2',
+    ],
+  },
+
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
@@ -45,12 +71,14 @@ module.exports = {
       inject: true,
       filename: '[name].[hash].js',
       entry: {
-        vendor: ['./src/awesome-module.js', 'react', 'react-dom', 'font-awesome'],
+        vendor: [/*'./src/awesome-module.js',*/ 'react', 'react-dom' /*, 'font-awesome'*/],
         other: ['react'],
       },
 
       path: './dll',
-      inherit: true,
+      inherit: {
+        devtool: 'source-map',
+      },
       config: {
         output: {},
         plugins: [

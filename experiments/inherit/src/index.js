@@ -1,5 +1,5 @@
-import awesomeModule from './awesome-module';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import awesomeModule from './awesome-module.jsx';
 
-const elm = awesomeModule();
-
-document.body.append(elm);
+ReactDOM.render(awesomeModule(), document.getElementById('root'));
